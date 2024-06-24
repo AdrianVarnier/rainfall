@@ -1,0 +1,1 @@
+Using Ghidra we can see in the main an array of 76 bytes
