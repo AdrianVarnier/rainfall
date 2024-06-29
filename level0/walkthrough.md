@@ -9,7 +9,7 @@ using GDB, we can see that atoi is used and its result is compared with 423
 
 running level0 with 423 gives us access to a shell, where we are user level1 so we can get the .pass content
 
-```
+```Console
 level0@RainFall:~$ ./level0 423
 $ whoami
 level1
