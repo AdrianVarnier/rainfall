@@ -1,19 +1,38 @@
-using GDB, we can see that atoi is used and its result is compared with 423
-
+We will get information about various security features that are disabled at each level. This allows us to research
+the best method to exploit binaries.
+```Shell
+level0@localhost's password: 
+  GCC stack protector support:            Enabled
+  Strict user copy checks:                Disabled
+  Restrict /dev/mem access:               Enabled
+  Restrict /dev/kmem access:              Enabled
+  grsecurity / PaX: No GRKERNSEC
+  Kernel Heap Hardening: No KERNHEAP
+ System-wide ASLR (kernel.randomize_va_space): Off (Setting: 0)
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
+No RELRO        No canary found   NX enabled    No PIE          No RPATH   No RUNPATH   /home/user/level0/level0
 ```
-0x08048ed4 <+20>:    call   0x8049710 <atoi>
-0x08048ed9 <+25>:    cmp    $0x1a7,%eax
-0x08048ede <+30>:    jne    0x8048f58 <main+152>
 
+We also notice that the binary has level1 rights:
+```Shell
+-rwsr-x---+ 1 level1 users  747441 Mar  6  2016 level0
 ```
 
-running level0 with 423 gives us access to a shell, where we are user level1 so we can get the .pass content
+Here is what we get when testing:
+```Shell
+level0@RainFall:~$ ./level0
+Segmentation fault (core dumped)
+level0@RainFall:~$ ./level0 ieiusehf
+level0@RainFall:~$ ./level0 ieiusehf
+No !
+```
 
-```Console
+Decompiling with Snowman on https://dogbolt.org/ shows two things:
+- `atoi()` is used to compare the first argument passed to the program with 0x1a7 (423)
+- if the result is positive, it opens a shell that allows us to access the password.
+```Shell
 level0@RainFall:~$ ./level0 423
-$ whoami
-level1
+
 $ cat /home/user/level1/.pass
 1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
-
 ```
