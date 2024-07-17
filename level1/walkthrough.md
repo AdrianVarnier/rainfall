@@ -1,10 +1,10 @@
-Level2 protections:
+Level1's protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
 No RELRO        No canary found   NX disabled   No PIE          No RPATH   No RUNPATH   /home/user/level1/level1
 ```
 
-Level2 rights:
+Level1's rights:
 ```Shell
 -rwsr-s---+ 1 level2 users  5138 Mar  6  2016 level1
 ```
