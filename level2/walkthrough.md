@@ -1,3 +1,5 @@
+<p align="justify">
+
 Level2's protections:
 ```Shell
   GCC stack protector support:            Enabled
@@ -54,3 +56,5 @@ level2@RainFall:~$ cat /tmp/payload2 - | ./level2
 cat /home/user/level3/.pass
 492deb0e7d14c4b5695173cca843c4384fe52d0857c2b0718e1a521a4d33ec02
 ```
+
+</p>

@@ -1,10 +1,12 @@
-Level1's protections:
+<p align="justify"> 
+
+Level1 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
 No RELRO        No canary found   NX disabled   No PIE          No RPATH   No RUNPATH   /home/user/level1/level1
 ```
 
-Level1's rights:
+Level1 rights:
 ```Shell
 -rwsr-s---+ 1 level2 users  5138 Mar  6  2016 level1
 ```
@@ -48,3 +50,4 @@ Good... Wait what?
 cat /home/user/level2/.pass
 53a4a712787f40ec66c3c26c1f4b164dcad5552b038bb0addd69bf5bf6fa8e77
 ```
+</p>

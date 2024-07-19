@@ -1,3 +1,5 @@
+<p align="justify">
+
 level4 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
@@ -43,3 +45,5 @@ level4@RainFall:~$ cat /tmp/payload4 | ./level4
 0f99ba5e9c446258a69b290407a6c60859e9c2d25b26575cafc9ae6d75e9456a
 ```
 Note that there is no need to keep stdin open, as we do not launch `/bin/sh` but a simple `cat` command. The extra number corresponds to `%d`.
+
+</p>
