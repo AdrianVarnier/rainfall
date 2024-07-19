@@ -17,4 +17,12 @@ When testing the binary, it didn't do any particular thing. So let's decompile i
 - there is a call to a `setAnnotation()` function
 - unlike the other levels, there is no `system()` calls
 
+
+[...]
+0x08048677 <+131>:   call   0x804870e <_ZN1N13setAnnotationEPc>
+0x0804867c <+136>:   mov    0x10(%esp),%eax
+0x08048680 <+140>:   mov    (%eax),%eax
+0x08048682 <+142>:   mov    (%eax),%edx
+[...]
+Segfault at 0x08048682 when the arg is too big.
 </p>
