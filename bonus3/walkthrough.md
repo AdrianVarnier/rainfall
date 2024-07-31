@@ -18,7 +18,7 @@ bonus3@RainFall:~$ ./bonus3 ourosrghosug
 
 Let's decompile it with Hex-Rays on https://dogbolt.org/ and see what is there:
 - it takes an argument and uses `atoi()` to retrieve its value
-- it makes a comparison between the argument and a null pointer, opening a shell if the two strings are the same
+- it makes a comparison between the argument and an empty string, opening a shell if the two strings are the same
 - we also learn that the next user is not called bonusX but `end`
 
 We tried a null string and here it is:

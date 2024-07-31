@@ -1,6 +1,4 @@
-<p align="justify"> 
-
-We will get information about various security features that are disabled at each level. This allows us to research
+We will get information about various security features that are disabled at each level. In theory, this should allows us to research
 the best method to exploit binaries.
 ```Shell
 level0@localhost's password: 
@@ -25,7 +23,6 @@ Here is what we get when testing:
 level0@RainFall:~$ ./level0
 Segmentation fault (core dumped)
 level0@RainFall:~$ ./level0 ieiusehf
-level0@RainFall:~$ ./level0 ieiusehf
 No !
 ```
 
@@ -38,5 +35,3 @@ level0@RainFall:~$ ./level0 423
 $ cat /home/user/level1/.pass
 1fe8a524fa4bec01ca4ea2a869af2a02260d4a7d5fe7e7c24d8617e6dca12d3a
 ```
-
-</p>

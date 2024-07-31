@@ -1,12 +1,10 @@
-<p align="justify">
-
-level8 protections:
+Level8 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
 No RELRO        No canary found   NX disabled   No PIE          No RPATH   No RUNPATH   /home/user/level8/level8
 ```
 
-level8 rights:
+Level8 rights:
 ```Shell
 level8@RainFall:~$ ls -la level8 
 -rwsr-s---+ 1 level9 users 6057 Mar  6  2016 level8
@@ -44,5 +42,3 @@ login
 $ cat /home/user/level9/.pass
 c542e581c5ba5162a85f767996e3247ed619ef6c6f7b76a59435545dc6259f8a
 ```
-
-</p>

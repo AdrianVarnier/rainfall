@@ -21,13 +21,13 @@ Hello KIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIKOKO
 Let's decompile it with Hex-Rays on https://dogbolt.org/ and see what is there:
 - it takes two arguments, of max size 40-bytes and 32-bytes
 - it makes calls to `strcat()` and `strcpy()`, as well as a call to `greetuser()`
-- it uses an environment variable to set the language of your choice
+- it uses an environment variable to set the language of your choice.
 
 Unfortunately, there is no easy way to open a shell. So we decided to try a `ret2libc` attack. For this, we need to:
-- find the size of our payload to know to find where to overwrite `EIP`
-- find the addresses of `system()`, `exit()` (this is not necessary, but it is better practice for exiting cleanly) and the string `/bin/sh`
+- find the size of our payload to know where to overwrite `EIP`
+- find the addresses of `system()`, `exit()` (unnecessary, but it is better practice for exiting cleanly) and the string `/bin/sh`.
 
-Since the first arg is 40-bytes, we can just pad the whole thing with `A`s and generate a pattern for the second arg:
+Since the first arg is 40-bytes, we can just pad the whole thing with characters and generate a pattern for the second arg:
 ```Shell
 (gdb) run
 Starting program: /home/user/bonus2/bonus2 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
@@ -36,7 +36,7 @@ Hyvää päivää AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa0Aa1Aa2Aa3Aa4Aa5Aa6A
 Program received signal SIGSEGV, Segmentation fault.
 0x41366141 in ?? ()
 ```
-This gives us an offset of 18, which added to the previous 40 bytes equals to 58. It means that the second arg will start with a padding of 18 `A`s.
+This gives us an offset of 18, which added to the previous 40 bytes equals 58. It means that the second arg will start with a padding of 18 characters.
 
 Next, let's find all the addresses we need.
 `system()` is \xb7\xe6\xb0\x60:

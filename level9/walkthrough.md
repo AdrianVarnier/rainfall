@@ -1,5 +1,3 @@
-<p align="justify">
-
 Level9 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
@@ -22,7 +20,7 @@ Let's decompile it with Hex-Rays on https://dogbolt.org/ and see what is there:
 - the code is written in c++
 - unlike the other levels, there is no `system()` calls or direct access to the password
 - two exploitable buffers are allocated on the heap with `new`
-- we can exploit `memcpy()` because it takes argv[1] as argument and store it in one of the buffers
+- we can exploit `memcpy()` because it takes argv[1] as argument and store it in one of the buffers.
 
 Let's check if `system()` belongs to the shared libraries, and if so, fetch its address:
 ```Shell
@@ -50,7 +48,7 @@ eax            0x41366441       1094083649
 [...]
 ```
 
-The generator gives us an offset of 108 bytes. We will pad our payload with 104 `A` (4 bytes are reserved for `system()` address). When disassembling `main()`, you can see at two memory allocations of 108 bytes by the `new` operator:
+The generator gives us an offset of 108 bytes. We will pad our payload with 104 `A` (4 bytes are reserved for `system()` address). When disassembling `main()`, you can see two memory allocations of 108 bytes by the `new` operator:
 ```Shell
 [...]
 0x08048610 <+28>:    movl   $0x6c,(%esp)
@@ -66,7 +64,7 @@ Analysing the code in more depth, we realised three important things:
 - the next 4 bytes can store the argument of that function
 - if we overflow the 1st buffer with argv[1], we start writing on the 2nd buffer
 
-This means that we must find the start of our buffer to place it into these first 4 bytes. To do so, we will run the program with gdb and place a breakpoint right after the allocation. The address will be stored in `eax`
+This means that we must find the start of our buffer to place it into these first 4 bytes. To do so, we will run the program with gdb and place a breakpoint right after the memory allocation. The address will be stored in `eax`:
 ```Shell
 (gdb) disas main
 Dump of assembler code for function main:
@@ -83,7 +81,7 @@ Breakpoint 1, 0x0804867c in main ()
 (gdb) info register $eax
 eax            0x804a00c        134520844
 ```
-Here it is in Little Endian: `\x0c\xa0\x04\x08`.
+Here it is in little endian: `\x0c\xa0\x04\x08`.
 
 We're almost done, we just need to add the argument for `system()` as an extra string in the payload: `;/bin/sh`. If you don't add `;`, you will get permission denied, so you need to send an empty command first to skip that check.
 
@@ -95,4 +93,3 @@ sh: 1:
 $ cat /home/user/bonus0/.pass
 f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
 ```
-</p>

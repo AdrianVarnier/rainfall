@@ -1,5 +1,3 @@
-<p align="justify">
-
 Level3 protections:
 ```Shell
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
@@ -16,7 +14,7 @@ Decompiling with Ghidra on https://dogbolt.org/ shows four things:
 - `main()` calls a `v()` function
 - `v()` uses a buffer of 520 bytes that is used with `fgets()`, preventing us from doing the usual
 exploitation of `gets()`
-- however, `printf()` is also used and takes as its sole argument the buffer itself, which is unsafe
+- however, `printf()` is also called and takes as its sole argument the buffer itself, which is unsafe
 - a condition checks if `m` (a global variable) equals `0x40` (64). If true, it opens a terminal for us!
 
 The goal is to replace the content of `m` with 64.
@@ -33,7 +31,7 @@ First, we must find the address of `m`. Disassembling `v()` with gdb shows us an
  0x080484df <+59>:    cmp    $0x40,%eax
 [...]
  ```
-This is the address of `m` converted into Little Endian: `\x8c\x98\x04\x08`.
+This is the address of `m` converted into little endian: `\x8c\x98\x04\x08`.
 
 With a bit of research, we stumbled upon the `%n` specifier. `%n` calculates how many characters have been printed, then stores the result at a specified `int*`.
 Example:
@@ -74,5 +72,3 @@ Wait what?!
 cat /home/user/level4/.pass
 b209ea91ad69ef36f2cf0fcbbc24c739fd10464cf545b20bea8572ebdc3c36fa
 ```
-
-</p>
